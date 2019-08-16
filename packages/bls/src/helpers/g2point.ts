@@ -1,9 +1,8 @@
 import {BIG} from "@chainsafe/milagro-crypto-js/src/big";
 import {ECP2} from "@chainsafe/milagro-crypto-js/src/ecp2";
-import { sha256 } from 'js-sha256';
 import ctx from "../ctx";
 import * as random from "secure-random";
-import {calculateYFlag, getModulus, padLeft} from "./utils";
+import {calculateYFlag, getModulus, hash, padLeft} from "./utils";
 import assert from "assert";
 import {FP_POINT_LENGTH, G2_HASH_PADDING} from "../constants";
 import {bytes32, bytes48, Domain} from "@chainsafe/eth2.0-types";
@@ -62,23 +61,23 @@ export class G2point {
     const padding = Buffer.alloc(G2_HASH_PADDING, 0);
     const xReBytes = Buffer.concat([
       padding,
-      Buffer.from(sha256.arrayBuffer(
+      hash(
         Buffer.concat([
           message,
           padLeft(domain, 8),
           Buffer.from('01', 'hex')
         ])
-      ))
+      )
     ]);
     const xImBytes = Buffer.concat([
       padding,
-      Buffer.from(sha256.arrayBuffer(
+      hash(
         Buffer.concat([
           message,
           padLeft(domain, 8),
           Buffer.from('02', 'hex')
         ])
-      ))
+      )
     ]);
     const xRe = ctx.BIG.frombytearray(xReBytes, 0);
     const xIm = ctx.BIG.frombytearray(xImBytes, 0);

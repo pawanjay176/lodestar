@@ -1,6 +1,8 @@
 import assert from "assert";
 import {BIG} from "@chainsafe/milagro-crypto-js/src/big";
 import ctx from "../ctx";
+import SHA256 from "bcrypto/lib/sha256";
+import has = Reflect.has;
 
 /**
  * Pads byte array with zeroes on left side up to desired length.
@@ -31,4 +33,11 @@ export function calculateYFlag(yIm: BIG): boolean {
   tmp.add(yIm);
   tmp.div(getModulus());
   return tmp.isunity();
+}
+
+export function hash(value: Buffer): Buffer {
+  const hash = new SHA256();
+  hash.init();
+  hash.update(value);
+  return hash.final();
 }
