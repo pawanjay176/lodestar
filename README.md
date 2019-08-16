@@ -7,56 +7,83 @@
 Welcome to the ChainSafe lodestar monorepo!
 This repository contains a suite of Ethereum 2.0 packages.
 
-### [@chainsafe/bls](/packages/bls)
+## Development Setup
+Prerequisites:
+- [Nodejs LTS](https://nodejs.org/en/) - we recommend installing via [nvm](https://github.com/nvm-sh/nvm)
+- [yarn](https://yarnpkg.com/en/)
+- enable workspaces - `yarn config set workspaces-experimental true`
+
+Steps:
+1. `git clone --recursive git@github.com:ChainSafe/lodestar.git`
+2. `cd lodestar`
+3. `yarn install`
+
+And you are ready!
+
+#### Running tests
+- `lerna run test:unit`
+- `lerna run test:e2e`
+
+-- To run spec tests, you need to install [Git LFS](https://git-lfs.github.com/) 
+and pull spec test files with `git submodule foreach git lfs pull`
+- `lerna run test:spec-min` - run just minimal spec tests
+- `lerna run test:spec-main` - run just mainnet spec tests
+- `lerna run test:spec` - run all spec tests
+
+You can check `package.json` files for more commands.
+
+## Packages
+
+#### [@chainsafe/bls](/packages/bls)
 Ethereum 2.0 BLS signature verification
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/bls)](https://www.npmjs.com/package/@chainsafe/bls)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/bls)
 
-### [@chainsafe/ssz](/packages/ssz)
+#### [@chainsafe/ssz](/packages/ssz)
 Simple Serialize
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/ssz)](https://www.npmjs.com/package/@chainsafe/ssz)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/ssz)
 
-### [@chainsafe/eth2.0-types](/packages/eth2.0-types)
+#### [@chainsafe/eth2.0-types](/packages/eth2.0-types)
 Typescript types for Ethereum 2.0 datastructures
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/eth2.0-types)](https://www.npmjs.com/package/@chainsafe/eth2.0-types)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/eth2.0-types)
 
-### [@chainsafe/eth2.0-params](/packages/eth2.0-params)
+#### [@chainsafe/eth2.0-params](/packages/eth2.0-params)
 Beacon chain parameters
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/eth2.0-params)](https://www.npmjs.com/package/@chainsafe/eth2.0-params)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/eth2.0-params)
 
-### [@chainsafe/eth2.0-ssz-types](/packages/eth2.0-ssz-types)
+#### [@chainsafe/eth2.0-ssz-types](/packages/eth2.0-ssz-types)
 Beacon chain ssz types
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/eth2.0-ssz-types)](https://www.npmjs.com/package/@chainsafe/eth2.0-ssz-types)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/eth2.0-types)
 
-### [@chainsafe/eth2.0-config](/packages/eth2.0-config)
+#### [@chainsafe/eth2.0-config](/packages/eth2.0-config)
 Beacon chain configuration
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/eth2.0-config)](https://www.npmjs.com/package/@chainsafe/eth2.0-config)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/eth2.0-config)
 
-### [@chainsafe/eth2.0-spec-test-util](/packages/eth2.0-spec-test-util)
+#### [@chainsafe/eth2.0-spec-test-util](/packages/eth2.0-spec-test-util)
 Ethereum 2.0 spec test utilities
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/eth2.0-spec-test-util)](https://www.npmjs.com/package/@chainsafe/eth2.0-spec-test-util)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![documentation](https://img.shields.io/badge/documentation-typedoc-blue)](https://chainsafe.github.io/lodestar/eth2.0-spec-test-util)
 
-### [@chainsafe/lodestar](/packages/lodestar)
+#### [@chainsafe/lodestar](/packages/lodestar)
 Beacon chain implementation
 
 [![npm](https://img.shields.io/npm/v/@chainsafe/lodestar)](https://www.npmjs.com/package/@chainsafe/lodestar)
