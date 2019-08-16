@@ -22,8 +22,7 @@
     "check-types": "tsc --noEmit --incremental",
     "lint": "eslint --ext .ts src/",
     "lint-fix": "eslint --ext .ts src/ --fix",
-    "prepublishOnly": "yarn build",
-    "test": "yarn run check-types"
+    "prepublishOnly": "yarn build"
   },
   "repository": {
     "type": "git",
