@@ -1,9 +1,18 @@
 import {join} from "path";
-import {describeSpecTest} from "@chainsafe/eth2.0-spec-test-util";
+import {BaseCase, describeMultiSpec} from "@chainsafe/eth2.0-spec-test-util";
 import bls from "../../src";
 import {padLeft} from "../../src/helpers/utils";
 
-describeSpecTest(
+export interface SignMessageCase extends BaseCase {
+    input: {
+        message: string;
+        domain: string;
+        privkey: string;
+    };
+    output: string
+}
+
+describeMultiSpec<SignMessageCase, string>(
     join(__dirname, "./spec-tests/tests/bls/sign_msg/sign_msg.yaml"),
     bls.sign,
     ({input}) => {

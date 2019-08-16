@@ -1,9 +1,16 @@
 import {join} from "path";
-import {describeSpecTest} from "@chainsafe/eth2.0-spec-test-util";
+import {BaseCase, describeMultiSpec} from "@chainsafe/eth2.0-spec-test-util";
 import bls from "../../src";
-import {BLSSignature} from "../../src/types";
+import {BLSSignature} from "@chainsafe/eth2.0-types";
+import {describe} from "mocha";
 
-describeSpecTest(
+export interface AggregatePubkeysCase extends BaseCase {
+    input: string[];
+    output: string
+}
+
+
+describeMultiSpec<AggregatePubkeysCase, string>(
     join(__dirname, "./spec-tests/tests/bls/aggregate_pubkeys/aggregate_pubkeys.yaml"),
     bls.aggregatePubkeys,
     ({input}) => {

@@ -1,9 +1,18 @@
 import {join} from "path";
-import {describeSpecTest} from "@chainsafe/eth2.0-spec-test-util";
+import {BaseCase, describeMultiSpec} from "@chainsafe/eth2.0-spec-test-util";
 import {padLeft} from "../../src/helpers/utils";
 import {G2point} from "../../src/helpers/g2point";
 
-describeSpecTest(
+export interface G2CompressedTestCase extends BaseCase {
+    input: {
+        message: string
+        domain: string
+    };
+    output: string
+}
+
+
+describeMultiSpec<G2CompressedTestCase, string>(
     join(__dirname, "./spec-tests/tests/bls/msg_hash_g2_compressed/g2_compressed.yaml"),
     G2point.hashToG2,
     ({input}) => {
