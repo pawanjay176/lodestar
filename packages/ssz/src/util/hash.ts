@@ -9,7 +9,7 @@ import {_serialize} from "../serialize";
 import {hash} from "../hash";
 
 // create array of "zero hashes", successively hashed zero chunks
-const zeroHashes = [Buffer.alloc(BYTES_PER_CHUNK)];
+export const zeroHashes = [Buffer.alloc(BYTES_PER_CHUNK)];
 for (let i = 0; i < 52; i++) {
   zeroHashes.push(hash(zeroHashes[i], zeroHashes[i]));
 }
@@ -43,7 +43,7 @@ export function chunkify (input: Buffer): Buffer[] {
 }
 
 /** @ignore */
-function bitLength (n: number): number {
+export function bitLength (n: number): number {
   let length = 0;
   while (n !== 0) {
     // rshift only works to 32 bits, so we int div by 2 instead
@@ -54,8 +54,13 @@ function bitLength (n: number): number {
 }
 
 /** @ignore */
-function nextPowerOf2 (n: number): number {
+export function nextPowerOf2 (n: number): number {
   return n <= 0 ? 1 : Math.pow(2, bitLength(n - 1));
+}
+
+/** @ignore */
+export function previousPowerOf2 (n: number): number {
+  return n === 0 ? 1 : Math.pow(2, bitLength(n) - 1);
 }
 
 /** @ignore */
