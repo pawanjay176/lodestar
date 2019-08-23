@@ -4,7 +4,6 @@ import {hashTreeRoot} from "@chainsafe/ssz";
 import sinon from "sinon";
 import {Keypair} from "@chainsafe/bls-js/lib/keypair";
 import {BeaconBlockHeader, ValidatorIndex} from "@chainsafe/eth2.0-types";
-import {config} from "@chainsafe/eth2.0-config/lib/presets/mainnet";
 import {PrivateKey} from "@chainsafe/bls-js/lib/privateKey";
 
 import {DEPOSIT_CONTRACT_TREE_DEPTH, FAR_FUTURE_EPOCH, ZERO_HASH} from "../../../../../src/constants";
@@ -34,7 +33,7 @@ import {
   StateRepository,
   VoluntaryExitRepository
 } from "../../../../../src/db/api/beacon/repositories";
-import { createIBeaconConfig } from "@chainsafe/eth2.0-config";
+import { config } from "@chainsafe/eth2.0-config/lib/presets/minimal";
 
 describe('produce block', function () {
   this.timeout(0);
@@ -50,7 +49,7 @@ describe('produce block', function () {
     voluntaryExit: sinon.createStubInstance(VoluntaryExitRepository),
     deposit: sinon.createStubInstance(DepositRepository),
   };
-  const configStub = sinon.createStubInstance(createIBeaconConfig);
+  const configStub = config;
   const opPoolStub = new OpPool({}, {config: configStub, db: dbStub, eth1: sinon.createStubInstance(EthersEth1Notifier)});
   const eth1Stub = sinon.createStubInstance(EthersEth1Notifier);
 
