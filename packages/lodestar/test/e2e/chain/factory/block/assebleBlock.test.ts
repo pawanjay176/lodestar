@@ -34,7 +34,7 @@ import {
   StateRepository,
   VoluntaryExitRepository
 } from "../../../../../src/db/api/beacon/repositories";
-import { config } from "@chainsafe/eth2.0-config/lib/presets/minimal";
+import {config as minconfig} from "@chainsafe/eth2.0-config/lib/presets/minimal";
 
 describe('produce block', function () {
   this.timeout(0);
@@ -50,7 +50,7 @@ describe('produce block', function () {
     voluntaryExit: sinon.createStubInstance(VoluntaryExitRepository),
     deposit: sinon.createStubInstance(DepositRepository),
   };
-  const configStub = config;
+  const configStub = minconfig;
   const opPoolStub = new OpPool({}, {config: configStub, db: dbStub, eth1: sinon.createStubInstance(EthersEth1Notifier)});
   const eth1Stub = sinon.createStubInstance(EthersEth1Notifier);
 
@@ -67,7 +67,7 @@ describe('produce block', function () {
     const parentBlock = generateEmptyBlock();
     //if zero hash it get changed
     parentBlock.stateRoot = Buffer.alloc(32, 1);
-    const parentHeader: BeaconBlockHeader = blockToHeader(config, parentBlock);
+    const parentHeader: BeaconBlockHeader = blockToHeader(minconfig, parentBlock);
     const state = generateState({
       validators: validators,
       balances,
