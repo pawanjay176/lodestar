@@ -9,7 +9,6 @@ import {BeaconBlockHeadersResponse, BeaconBlockBodiesResponse, BeaconBlock} from
 import {IBeaconConfig} from "@chainsafe/eth2.0-config";
 import {IBeaconDb} from "../db";
 import {IBeaconChain} from "../chain";
-import {SyncRpc} from "../network/libp2p/syncRpc";
 import {INetwork} from "../network";
 import {ReputationStore} from "./reputation";
 import {ILogger} from "../logger";
@@ -85,9 +84,9 @@ export class InitialSync {
     const blocks = await this.rpc.getBeaconBlocks(
       peerInfo, latestFinalizedSlot, slotCountToSync, false
     );
-    blocks.forEach(async (block) => {
+    for(const block of blocks) {
       await this.chain.receiveBlock(block);
-    });
+    }
 
   }
   public async start(): Promise<void> {
@@ -97,3 +96,8 @@ export class InitialSync {
   }
 }
 
+function generatePreset(name: string) {
+
+}
+
+export const mainnet = generatePreset("mainnet");

@@ -5,7 +5,7 @@ import ganache from "ganache-core";
 import sinon from "sinon";
 import {Provider} from "ethers/providers";
 import promisify from "promisify-es6";
-import bls from "@chainsafe/bls-js";
+import bls from "@chainsafe/bls";
 import {serialize} from "@chainsafe/ssz";
 
 import {config} from "@chainsafe/eth2.0-config/lib/presets/mainnet";
@@ -26,7 +26,7 @@ describe("Eth1Notifier", () => {
   let logger: ILogger = new WinstonLogger();
 
   before(async function (): Promise<void> {
-    logger.silent(true);
+    logger.silent = true;
     sandbox = sinon.createSandbox();
     opPool = sandbox.createStubInstance(OpPool);
     opPool.deposits = sandbox.createStubInstance(DepositsOperations);
@@ -43,7 +43,7 @@ describe("Eth1Notifier", () => {
   after(async () => {
     sandbox.restore();
     await promisify(ganacheProvider.close)();
-    logger.silent(false);
+    logger.silent = false;
   });
 
   it(
@@ -125,7 +125,6 @@ describe("Eth1Notifier", () => {
     const amount = "0x" + serialize(32000000000, config.types.number64).toString("hex");
     const signature = "0x" + Buffer.alloc(94).toString("hex");
     const merkleTreeIndex = "0x" + serialize(0 , config.types.number64).toString("hex");
-    opPool.deposits.receive.resolves(null);
     await eth1.processDepositLog(pubKey, withdrawalCredentials, amount, signature, merkleTreeIndex);
     assert(cb.calledOnce, "deposit event did not fire");
   });

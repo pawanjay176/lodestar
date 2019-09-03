@@ -1,6 +1,6 @@
 {
   "name": "@chainsafe/eth2.0-ssz-types",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SSZ types required for eth2.0",
   "author": "ChainSafe Systems",
   "license": "LGPL-3.0",
@@ -24,7 +24,7 @@
     "lint-fix": "eslint --ext .ts src/ --fix",
     "prepublishOnly": "yarn build",
     "pretest": "yarn run check-types",
-    "test": "mocha -r ./.babel-register 'test/**/*.test.ts'"
+    "test:unit": "mocha -r ./.babel-register 'test/**/*.test.ts'"
   },
   "repository": {
     "type": "git",
@@ -44,5 +44,9 @@
     "@chainsafe/ssz": "0.5.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
   }
 }

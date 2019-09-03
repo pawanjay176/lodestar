@@ -25,7 +25,7 @@ import {INetwork} from "../index";
 import {getEmptyBlockBody} from "../../chain/genesis/genesis";
 import {ReputationStore} from "../../sync/reputation";
 import {ILogger} from "../../logger";
-import {ISyncRpc} from "../../sync/rpc/interface";
+import {ISyncRpc, ISyncOptions} from "../../sync/rpc/interface";
 import {blockToHeader} from "../../chain/stateTransition/util";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -36,8 +36,17 @@ interface SyncOptions {
  * The SyncRpc module handles app-level requests / responses from other peers,
  * fetching state from the chain and database as needed.
  */
+export interface SyncModule {
+  config: IBeaconConfig;
+  db: IBeaconDb;
+  chain: IBeaconChain;
+  network: INetwork;
+  reps: ReputationStore;
+  logger: ILogger;
+}
+
 export class SyncRpc implements ISyncRpc {
-  private opts: SyncOptions;
+  private opts: ISyncOptions;
   private config: IBeaconConfig;
   private db: IBeaconDb;
   private chain: IBeaconChain;
@@ -45,16 +54,14 @@ export class SyncRpc implements ISyncRpc {
   private reps: ReputationStore;
   private logger: ILogger;
 
-  public constructor(opts: SyncOptions,
-    {config, db, chain, network, reps, logger}:
-    { config: IBeaconConfig; db: IBeaconDb; chain: IBeaconChain; network: INetwork; reps: ReputationStore; logger: ILogger }) {
+  public constructor(opts: ISyncOptions, {config, db, chain, network, reps, logger}: SyncModule) {
     this.config = config;
-    this.logger = logger;
     this.opts = opts;
     this.db = db;
     this.chain = chain;
     this.network = network;
     this.reps = reps;
+    this.logger = logger;
   }
 
   // create common requests

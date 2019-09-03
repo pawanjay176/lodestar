@@ -2,9 +2,10 @@ import {expect} from "chai";
 import BN from "bn.js";
 import {hashTreeRoot} from "@chainsafe/ssz";
 import sinon from "sinon";
-import {Keypair} from "@chainsafe/bls-js/lib/keypair";
+import {Keypair} from "@chainsafe/bls/lib/keypair";
 import {BeaconBlockHeader, ValidatorIndex} from "@chainsafe/eth2.0-types";
-import {PrivateKey} from "@chainsafe/bls-js/lib/privateKey";
+import {config} from "@chainsafe/eth2.0-config/lib/presets/mainnet";
+import {PrivateKey} from "@chainsafe/bls/lib/privateKey";
 
 import {DEPOSIT_CONTRACT_TREE_DEPTH, FAR_FUTURE_EPOCH, ZERO_HASH} from "../../../../../src/constants";
 import {ValidatorDB} from "../../../../../src/db";

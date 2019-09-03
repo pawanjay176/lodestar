@@ -1,4 +1,4 @@
-import {PrivateKey} from "@chainsafe/bls-js/lib/privateKey";
+import {PrivateKey} from "@chainsafe/bls/lib/privateKey";
 import sinon from "sinon";
 import {expect} from "chai";
 
@@ -20,7 +20,7 @@ describe('validator attestation service', function () {
   let logger: ILogger = new WinstonLogger();
 
   before(() => {
-    logger.silent(true);
+    logger.silent = true;
   });
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe('validator attestation service', function () {
   });
 
   after(() => {
-    logger.silent(false);
+    logger.silent = false;
   });
 
   it('should not sign conflicting attestation', async function () {
