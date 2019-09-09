@@ -14,7 +14,7 @@ import {
   BeaconBlocksByRangeRequest, BeaconBlocksByRangeResponse,
   BeaconBlocksByRootRequest, BeaconBlocksByRootResponse,
 } from "@chainsafe/eth2.0-types";
-import {serialize, deserialize} from "@chainsafe/ssz";
+import {serialize, deserialize, hash} from "@chainsafe/ssz";
 import {IBeaconConfig} from "@chainsafe/eth2.0-config";
 
 import {
@@ -133,6 +133,7 @@ export class ReqResp extends (EventEmitter as ReqRespEventEmitterClass) implemen
         output = serialize(body, this.config.types.BeaconBlocksByRootRequest);
         break;
     }
+    console.log(method, 'request body length', output.length);
     return Buffer.concat([
       Buffer.from(varint.encode(output.length)),
       output,
@@ -154,6 +155,7 @@ export class ReqResp extends (EventEmitter as ReqRespEventEmitterClass) implemen
         output = serialize(body, this.config.types.BeaconBlocksByRootResponse);
         break;
     }
+    console.log(method, 'response body length', output.length, hash(output), output.slice(0, 4));
     return Buffer.concat([
       Buffer.alloc(1),
       Buffer.from(varint.encode(output.length)),
@@ -175,6 +177,7 @@ export class ReqResp extends (EventEmitter as ReqRespEventEmitterClass) implemen
       throw new Error(ERR_INVALID_REQ);
     }
     data = data.slice(bytes);
+    console.log(method, 'request body length', data.length);
     switch (method) {
       case Method.Hello:
         return deserialize(data, this.config.types.Hello);
@@ -197,6 +200,7 @@ export class ReqResp extends (EventEmitter as ReqRespEventEmitterClass) implemen
       throw new Error(ERR_INVALID_REQ);
     }
     data = data.slice(bytes + 1);
+    console.log(method, 'response body length', data.length, hash(data), data.slice(0,4));
     if (code !== 0) {
       throw new Error(data.toString("utf8"));
     }
